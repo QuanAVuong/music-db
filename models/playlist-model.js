@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const sequelizeConnection = require('../db');
+const Song = require("./song-model.js")
 
 //////////
 // YOUR CODE HERE:
@@ -7,10 +8,15 @@ const sequelizeConnection = require('../db');
 var Playlist = sequelizeConnection.define("Playlist", {
 	title: {
 		type: Sequelize.STRING(100),
-		validate: {
-			isEmpty: true
-		}
+		// validate: {
+		// 	isEmpty: true
+		// 	// len: [0, 100]
+		// }
 	}
 })
+
+Song.belongsToMany(Playlist, {through: "Playlist_Song"})
+Playlist.belongsToMany(Song, {through: "Playlist_Song"})
+
 
 module.exports = Playlist;
