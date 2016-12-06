@@ -12,7 +12,8 @@ Song.sync({force: true})
   {title: 'Swim Good', youtube_url: 'https://www.youtube.com/watch?v=PmN9rZW0HGo', artistId: 1}
 ))
 .then((song) => {
-  //use an automatically created 'accessor' method (addGenres) to add the genres
+  //use an automatically created 'accessor' method (addGenres, getGenres, setGenres etc.) to add the genres
+  //otherwise, cannot make changes to joined models/tables
   song.addGenres([1, 3])
 })
 .then(() => Song.create(
