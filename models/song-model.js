@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const sequelizeConnection = require('../db');
 const Genre = require("./genre-model.js")
-
+const Artist = require("./artist-model.js")
 //////////
 // YOUR CODE HERE:
 //////////
@@ -19,8 +19,11 @@ var Song = sequelizeConnection.define("Song", {
 // safer to put both below statements in 1 model rather than separating to avoid circular importing of each other (will get error)
 // this will only create ID columns, not the actual IDs
 // the new tables created also automatically get new methods based on Model's name eg. addGenres, addSongs etc.
+Song.belongsTo(Artist)
+
 Song.belongsToMany(Genre, {through: "Genre_Song"})
 Genre.belongsToMany(Song, {through: "Genre_Song" })
+
 
 // With Belongs-To-Many you can query based on through relation and select specific attributes. For example using findAll with through
 
