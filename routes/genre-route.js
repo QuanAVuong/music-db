@@ -23,9 +23,22 @@ const getGenreById = (req, res) => {
 
 // /api/genre POST (create) a new genre
 
+
+
 // /api/genre/:id/:newGenre PUT (update) a specific genre's name
+const putGenreByTitle = (req, res) => {
+	Genre.update(
+		{ title : req.body.title },
+		{ where: {id: req.params.id} }
+	)
+	.then( updatedGenre => res.send("Song ID: " + req.params.id + " title's replaced with " + req.params.newGenre
+		)
+	)
+}
 
 
+
+// API ENDPOINTS
 router.route('/')
 .get(getAllGenres)
 
@@ -35,5 +48,7 @@ router.route("/sortedAZ")
 router.route("/:id")
 .get(getGenreById)
 
+router.route("/:id/:newGenre")
+.put(putGenreByTitle)
 
 module.exports = router
