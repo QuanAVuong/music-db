@@ -2,13 +2,13 @@ const Playlist = require('../models/playlist-model');
 const express = require('express');
 const router = express.Router();
 
-// /api/playlists GET all playlists 
+// /api/playlist GET all playlists 
 const getAllPlaylists = (req,res) => {
   Playlist.findAll()
   .then( playlists => res.send(playlists) )
 };
 
-// /api/playlists GET all playlists with song information fully populated (in other words, should say full song, artist, and genre names, instead of only having the ids)
+// /api/playlist GET all playlists with song information fully populated (in other words, should say full song, artist, and genre names, instead of only having the ids)
 const getPlaylistsFull = (req, res) => {
 	Playlist.findAll(
 		{ include: [ {all: true} ] }
@@ -16,15 +16,23 @@ const getPlaylistsFull = (req, res) => {
 	.then( fullPlaylists => res.send(fullPlaylists) )
 }
 
+// /api/playlist/:id GET a specific playlist by id
+const getPlaylistById = (req, res) => {
+	Playlist.findById(req.params.id)
+	.then( playlist => res.send(playlist) )
+}
 
-// /api/playlists/:id GET a specific playlist by id
-
-// /api/playlists POST (create) a new playlist
-
+// /api/playlist POST (create) a new playlist
 // You will also have to use a special 'accessor' method here to add in the songs
 
-// /api/playlists/:id DELETE a playlist by id
 
+
+// /api/playlist/:id DELETE a playlist by id
+const deletePlaylistById = (req, res) => {
+	Playlist.destroy(
+		{ where: {id: req.params.id} }
+	).then( deletedPlaylist => res.send( "deleted playlist: \n" + "id: " + req.params.id + " title: " + deletedPlaylist) )
+}
 
 
 // API ENDPOINTS
@@ -34,8 +42,8 @@ router.route("/")
 router.route("/full")
 .get(getPlaylistsFull)
 
-// router.route("/:id")
-// .get(getPlaylistById)
-
+router.route("/:id")
+.get(getPlaylistById)
+.delete(deletePlaylistById)
 
 module.exports = router
