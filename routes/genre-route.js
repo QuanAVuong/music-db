@@ -16,6 +16,10 @@ const getGenresAZ = (req, res) => {
 }
 
 // /api/genre/:id GET a specific genre by id
+const getGenreById = (req, res) => {
+	Genre.findById(req.params.id)
+	.then( genre => res.send(genre) )
+}
 
 // /api/genre POST (create) a new genre
 
@@ -27,5 +31,9 @@ router.route('/')
 
 router.route("/sortedAZ")
 .get(getGenresAZ)
+
+router.route("/:id")
+.get(getGenreById)
+
 
 module.exports = router
