@@ -5,7 +5,7 @@ const Song = require("./song-model.js")
 //////////
 // YOUR CODE HERE:
 //////////
-var Playlist = sequelizeConnection.define("Playlist", {
+var Playlist = sequelizeConnection.define("playlist", {
 	title: {
 		type: Sequelize.STRING(100),
 		// validate: {

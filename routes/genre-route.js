@@ -9,6 +9,17 @@ const getGenres = (req,res)=>{
   })
 };
 
+
+
+// /api/genres GET all genres, ordered a-z
+
+// /api/genres/:id GET a specific genre by id
+
+// /api/genres POST (create) a new genre
+
+// /api/genres/:id/:newGenre PUT (update) a specific genre's name
+
+
 router.route('/')
 .get(getGenres)
 
